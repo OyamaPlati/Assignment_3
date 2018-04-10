@@ -27,7 +27,7 @@ public class HashSet {
 	 * @param key The given key for hashing 
 	 * @param tableSize The size of the array
 	 * @return Position of object in array
-	 *
+	 */
 	public int hashCode (String key, int tableSize)
 	{
 	    int h = 0;
@@ -37,29 +37,13 @@ public class HashSet {
 	    }
 	    return h;
 	}
-   */
-   
-   public static int hash( String key, int tableSize )
-   {
-      int hashVal = 0;
-
-      for( int i = 0; i < key.length( ); i++ )
-         hashVal = ( hashVal * 128 + key.charAt( i ) ) % tableSize;
-     return hashVal;
-   }
     
 	/**
 	 * This subroutine adds a new voter into the table at a calculated position
 	 * @param x The voter 
 	 */
 	public void insert (Voter x) {
-		int h = hash (x.getID().trim(), A.length);
-      
-      /*
-      System.out.println("Insert hashcodes: " + h);
-      System.out.println("Id from voter going into set: " + x.getID().trim());
-		*/
-      
+		int h = hashCode (x.getID().trim(), A.length);
       Node<Voter> p = new Node<Voter> ();
       p.setData(x);
       p.setLink(A[h]);
@@ -72,29 +56,11 @@ public class HashSet {
 	 * @return The node containing the voter in table
 	 */
 	public Node<Voter> find (String x) {
-		int h = hash (x, A.length);
-      //System.out.println("Find hashcodes: " + h);
+		int h = hashCode (x, A.length);
 		Node<Voter> p = A[h];
-		
       while ((p != null) && !(p.getData().getID().trim().equals(x))) {
 			p = p.getLink();
       }
 		return p;
 	}
-   
-   // Test --> hash methods
-   public static void main (String[] args) {
-      Scanner keyboard = new Scanner(System.in);
-      HashSet set = new HashSet(211);
-      char answer;
-      do {
-         System.out.println("Enter id: ");
-         String id = keyboard.nextLine();
-         keyboard.nextLine();
-         System.out.println("Here's your hash value: " + set.hash(id, 211));
-         
-         System.out.println("Continue (y/n) ?");
-         answer = (keyboard.nextLine()).charAt(0); 
-      }while(answer == 'y' || answer == 'Y');
-   } // End of main
 }

@@ -16,13 +16,12 @@ public class IdGenerator {
  // Generate unique ID
  // Create a new datafile with IDs and names
  // (names.csv && unique ID)  --> idAndNames.dat 
-
- public static void _init_ () {
-     int count = 0;
-     Scanner inputStream = null;       // Tool to read input file
-     PrintWriter outputStream = null;  // Tool to write to output file
+   
+ private static Scanner inputStream = null;       // Tool to read input file
+ private static PrintWriter outputStream = null;  // Tool to write to output file
  
-     try {
+ public static void _init_ () {
+          try {
       // Open streams for io purposes 
       inputStream = new Scanner (
          new FileInputStream ((new File ("names.csv")).getAbsolutePath()));
@@ -37,7 +36,6 @@ public class IdGenerator {
       
       //Send to new database
       while (inputStream.hasNextLine()) {
-         
          // Create unique id numbers 
          Random rnd = new Random ();
          int n1 = 100000 + rnd.nextInt(9000000);
@@ -52,33 +50,28 @@ public class IdGenerator {
             
             // Ensure a 13 digit id 
             if (id.length() > 13) {
-               id = id.substring(0, id.length()-1);
+               String properId = id.substring(0, 13);
+               write (properId);   
             }
             else {
-               id = id + "0"; // Zero padding
+               write (id);
             }
          }
-         
-         // Extract line from csv file
-         String[] raw = (inputStream.nextLine()).split(",");
-         // Write to file
-         if (raw.length >= 2) {
-            // 1 name per person 
-            outputStream.println(id + " " + raw[0] + raw[1]);
-            count++;
-            /*System.out.println("Write to file: " 
-                  + id + " " + raw[0] + raw[1]);*/
-         }
-         else {
-            outputStream.println(id + " " + raw[0]);
-            count++;
-            /*System.out.println("Write to file: " 
-                  + id + " " + raw[0]);*/
-         }
       } 
-      
-      System.out.println("The file size: " + count);
       inputStream.close();
       outputStream.close(); 
    } // End of _init_
+   
+   public static void write (String id) {
+      // Extract line from csv file
+      String[] raw = (inputStream.nextLine()).split(",");
+      // Write to file
+      if (raw.length >= 2) {
+         // 1 name per person 
+         outputStream.println(id + " " + raw[0] + raw[1]);
+      }
+      else {
+         outputStream.println(id + " " + raw[0]);
+      }
+   }
 }

@@ -68,12 +68,9 @@ public class VoterApp {
 	        if (rawdata.length > 2) {
 	           set.insert(
 	              new Voter(rawdata[1] + " " + rawdata[2], rawdata[0]));
-              /*System.out.println("Insert into hashset: " + rawdata[0] 
-                     + " " + rawdata[1] + " " + rawdata[2]);*/
 	        }
 	        else {
 	        	set.insert(new Voter(rawdata[1], rawdata[0]));
-            //System.out.println("Insert into hashset: " + rawdata[0] + " " + rawdata[1]);
 	        }    
 	    }
        
